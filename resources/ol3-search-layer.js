@@ -107,34 +107,11 @@ var SearchLayer = (function (Control) {
   ];
   var returnHorsey = function(input, source, map, select, options) {
     horsey(input, {
-      source: [{
-        list: source.getFeatures().map(function(el, i) {
-          if (el.getId() === undefined) {
-            el.setId(i);
-          }
-          return {
-            text: el.get(options.colName),
-            value: el.getId() // If GeoJSON has an id
-          };
-        })
-      }],
-      getText: 'text',
-      getValue: 'value',
-      predictNextSearch: function(info) {
-        var feat = source.getFeatureById(info.selection.value);
-        var featType = feat.getGeometry().getType();
-        if (typesToZoomToCenterAndZoom.indexOf(featType) !== -1) {
-          var newCenter = ol.extent.getCenter(feat.getGeometry().getExtent());
-          map.getView().setCenter(newCenter);
-          map.getView().setZoom(options.zoom || 12);
-        } else if (typesToZoomToExtent.indexOf(featType) !== -1) {
-          map.getView().fit(feat.getGeometry().getExtent(), map.getSize());
-        }
+  source: [], // Pusta lista = brak podpowiedzi
+  getText: 'text',
+  getValue: 'value'
+});
 
-        select.getFeatures().clear();
-        select.getFeatures().push(feat);
-      }
-    });
   }
   if (source.getState() === 'ready') {
     horseyComponent = returnHorsey(input, source, map, select, options);
