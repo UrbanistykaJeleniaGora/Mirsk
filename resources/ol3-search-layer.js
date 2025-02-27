@@ -106,10 +106,7 @@ var SearchLayer = (function (Control) {
     'Point'
   ];
   var returnHorsey = function(input, source, map, select, options) {
-    horsey(input, {
-  source: [], // Pusta lista = brak podpowiedzi
-  getText: 'text',
-  getValue: 'value'
+   
 });
 
   }
